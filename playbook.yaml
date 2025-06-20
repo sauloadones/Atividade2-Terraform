@@ -1,0 +1,49 @@
+---
+- name: Configurar servidor web com Nginx
+  hosts: localhost
+  connection: local
+  become: true
+
+  tasks:
+    - name: Atualizar pacotes do sistema
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Instalar Git
+      apt:
+        name: git
+        state: present
+
+    - name: Instalar Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Garantir que Nginx está ativo e habilitado
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Clonar repositório do site
+      git:
+        repo: 'https://github.com/avanti-dvp/site-exemplo-aws.git'
+        dest: '/tmp/website'
+
+    - name: Copiar arquivos do site para a raiz do Nginx
+      copy:
+        src: "/tmp/website/"
+        dest: "/var/www/html/"
+        owner: www-data
+        group: www-data
+        mode: '0755'
+        remote_src: no
+      notify:
+        - restart nginx
+
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
