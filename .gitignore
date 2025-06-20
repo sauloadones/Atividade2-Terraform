@@ -1,32 +1,30 @@
-# Arquivos de estado do Terraform (muito importantes!)
+# Terraform state
 *.tfstate
 *.tfstate.backup
 
-# Diretório de estado local
+# Crash logs
+crash.log
+
+# Terraform variables (se conter segredos)
+terraform.tfvars
+*.auto.tfvars
+
+# Diretório de cache do Terraform
 .terraform/
 
-# Planos de execução salvos
+# Planos temporários
 *.tfplan
 
-# Arquivos de variáveis sensíveis
-*.auto.tfvars
-*.auto.tfvars.json
-terraform.tfvars
-terraform.tfvars.json
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
 
-# Logs ou scripts temporários
-*.log
-*.bak
-*.tmp
-
-# SSH keys ou arquivos que não devem ser versionados
+# Chaves SSH ou arquivos sensíveis
 *.pem
 *.key
 *.crt
 
-# Arquivos específicos de sistemas operacionais
-.DS_Store
-Thumbs.db
-
-# Arquivos de user-data embutidos (se gerados dinamicamente)
-user_data_encoded.txt
+# Arquivos temporários ou de build
+*.log
+*.bak
+*.tmp

@@ -76,9 +76,7 @@ data "oci_core_images" "ubuntu" {
 data "template_file" "user_data" {
   template = file("${path.module}/user_data.sh")
 
-  vars = {
-    playbook = file("${path.module}/playbook.yaml")
-  }
+  
 }
 
 
