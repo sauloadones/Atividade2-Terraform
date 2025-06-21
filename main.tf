@@ -4,12 +4,6 @@ resource "oci_core_virtual_network" "vcn" {
   display_name   = "vcn-terraform"
 }
 
-resource "oci_core_public_ip" "reserved" {
-  compartment_id = var.compartment_id
-  lifetime       = "RESERVED"
-  display_name   = "publicipteste"
-}
-
 resource "oci_core_route_table" "rt" {
   compartment_id = var.compartment_id
   vcn_id         = oci_core_virtual_network.vcn.id
