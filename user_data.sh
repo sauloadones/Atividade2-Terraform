@@ -15,6 +15,11 @@ done
 apt update && apt upgrade -y
 apt install -y git ansible
 
+iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
+
+apt install -y iptables-persistent
+netfilter-persistent save
+
 git clone https://github.com/sauloadones/Atividade2-Terraform.git /home/ubuntu/projeto
 
 

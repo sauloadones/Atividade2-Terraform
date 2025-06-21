@@ -3,6 +3,13 @@ resource "oci_core_virtual_network" "vcn" {
   compartment_id = var.compartment_id
   display_name   = "vcn-terraform"
 }
+
+resource "oci_core_public_ip" "reserved" {
+  compartment_id = var.compartment_id
+  lifetime       = "RESERVED"
+  display_name   = "publicipteste"
+}
+
 resource "oci_core_route_table" "rt" {
   compartment_id = var.compartment_id
   vcn_id         = oci_core_virtual_network.vcn.id
@@ -50,6 +57,8 @@ resource "oci_core_security_list" "http_ssh" {
   }
 }
 
+
+
 resource "oci_core_subnet" "subnet" {
   cidr_block        = "10.0.1.0/24"
   compartment_id    = var.compartment_id
@@ -88,8 +97,10 @@ resource "oci_core_instance" "vm" {
   display_name = "vm-ubuntu"
 
   create_vnic_details {
-    subnet_id        = oci_core_subnet.subnet.id
-    assign_public_ip = true
+    subnet_id            = oci_core_subnet.subnet.id
+    assign_public_ip     = false
+    skip_source_dest_check = true
+
   }
 
  source_details {
